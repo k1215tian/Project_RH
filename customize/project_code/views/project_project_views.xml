@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- View project.project form -->
+        <record id="edit_project_inherit_custom" model="ir.ui.view">
+            <field name="name">project.project.form.inherit.custom</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" type="object" name="action_open_documents" icon="fa-folder-open-o">
+                        <field name="document_count" widget="statinfo" string="Documents"/>
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="team_id" options="{'no_create': True, 'no_open': False}"/>
+                </xpath>
+
+                <xpath expr="//div[hasclass('oe_title')]" position="inside">
+                    <div name="custom_code">
+                        <span>Code: <field name="code" class="fw-bold text-dark" placeholder="e.g. PRJ-2026-001"/>
+                        </span>
+                        <br/>
+                        <span>Type: <field name="project_type_id" options="{'no_create': True}" class="fw-bold text-dark"/>
+                        </span>
+                    </div>
+                </xpath>
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="Project Specs &amp; Details" name="custom_project_details">
+                        <group>
+                            <group string="General Info">
+                                <field name="spect_project"/>
+                                <field name="project_lead_id" widget="many2one_avatar_user" options="{'no_create': True, 'no_open': True}" />
+                                <field name="account_manager_id" widget="many2one_avatar_user" options="{'no_create': True, 'no_open': True}" />
+                                <field name="project_link" widget="url" placeholder="e.g. www.google.com"/>
+                            </group>
+                            <group string="Financials">
+                                <field name="currency_id" invisible="1"/>
+                                <field name="contract_value" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                            <group string="Workflow Teams">
+                                <field name="validator_ids" widget="many2many_avatar_user" options="{'no_create': True, 'no_open': True}" />
+                                <field name="approval_ids" widget="many2many_avatar_user" options="{'no_create': True, 'no_open': True}" />
+                            </group>
+                        </group>
+                        <separator string="Description"/>
+                        <field name="description" placeholder="Write project description here..."/>
+                    </page>
+                    <page string="Documents" name="project_documents_tab">
+                        <field name="document_ids" context="{'default_project_id': id}">
+                            <list string="Project Documents" decoration-info="state == 'draft'" decoration-warning="state == 'uploaded'" decoration-success="state == 'verified'" decoration-danger="state == 'rejected'">
+                                <field name="name"/>
+                                <field name="type"/>
+                                <field name="upload_date"/>
+                                <field name="uploaded_by" widget="many2one_avatar_user" options="{'no_create': True}"/>
+                                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-warning="state == 'uploaded'" decoration-success="state == 'verified'" decoration-danger="state == 'rejected'"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Team" name="team_management">
+                        <field name="member_ids" widget="many2many_kanban" options="{'no_create': True, 'no_open': False}">
+                            <kanban>
+                                <templates>
+                                    <t t-name="card" class="flex-row">
+                                        <aside>
+                                            <field name="avatar_128" widget="image" class="o_image_64_cover" alt="Avatar"/>
+                                        </aside>
+                                        <main class="ms-3">
+                                            <field name="name" class="fw-bold fs-5"/>
+                                            <div class="d-flex align-items-baseline text-break">
+                                                <i class="fa fa-envelope me-1" role="img" aria-label="Email" title="Email"/>
+                                                <field name="email"/>
+                                            </div>
+                                        </main>
+                                    </t>
+                                </templates>
+                            </kanban>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <menuitem id="menu_project_team_config" name="Projects Teams" action="action_project_team_config" parent="project.menu_project_config" sequence="5"/>
+    </data>
+</odoo>

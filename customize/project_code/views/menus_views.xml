@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_project_type_custom" name="Projects Types" parent="project.menu_project_config" action="action_project_type" sequence="6"/>
+
+    <menuitem id="menu_task_module_custom" name="Task Modules" parent="project.menu_project_config" action="action_task_module" sequence="9"/>
+
+    <menuitem id="project_res_partner_lob_custom" name="Line of Business" parent="project.menu_project_config" action="action_res_partner_lob" sequence="15" groups="project.group_project_manager"/>
+
+    <menuitem id="crm_res_partner_lob_custom" name="Line of Business" parent="crm.crm_menu_config" action="action_res_partner_lob" sequence="15" groups="sales_team.group_sale_manager"/>
+</odoo>

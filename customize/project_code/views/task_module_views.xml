@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_module_list" model="ir.ui.view">
+        <field name="name">task.module.list</field>
+        <field name="model">task.module</field>
+        <field name="arch" type="xml">
+            <list string="Task Modules">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="parent_id"/>
+                <field name="color" widget="color_picker" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_task_module_form" model="ir.ui.view">
+        <field name="name">task.module.form</field>
+        <field name="model">task.module</field>
+        <field name="arch" type="xml">
+            <form string="Task Module">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Module Name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Core Billing, API Integration..." required="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code" required="1"/>
+                            <field name="parent_id" placeholder="Select parent module if sub-module..." options="{'no_create': True}"/>
+                            <field name="color" widget="color_picker"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Sub Modules" name="sub_modules" invisible="parent_id != False">
+                            <field name="child_ids">
+                                <list editable="bottom">
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_task_module" model="ir.actions.act_window">
+        <field name="name">Task Modules</field>
+        <field name="res_model">task.module</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Task Module!
+            </p>
+        </field>
+    </record>
+</odoo>
