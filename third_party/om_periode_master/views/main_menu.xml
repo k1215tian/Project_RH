@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Parent Menu: ditaruh di dalam modul Settings (Administration) -->
+    <menuitem id="menu_periode_settings_root" name="Periode" parent="base.menu_administration" sequence="150" groups="base.group_erp_manager"/>
+</odoo>

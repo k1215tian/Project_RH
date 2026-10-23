@@ -1,0 +1,5 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_om_master_3m_manager,om_master_3m_manager,model_om_master_3m,base.group_erp_manager,1,1,1,0
+access_om_master_monthly_manager,om_master_monthly_manager,model_om_master_monthly,base.group_erp_manager,1,1,1,0
+access_om_master_period_scheduler_manager,om_master_period_scheduler_manager,model_om_master_period_scheduler,base.group_erp_manager,1,1,1,0
+access_om_master_weekly_manager,om_master_weekly_manager,model_om_master_weekly,base.group_erp_manager,1,1,1,0

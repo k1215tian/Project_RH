@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form_inherit_period_timezone" model="ir.ui.view">
+        <field name="name">res.company.form.inherit.period.timezone</field>
+        <field name="model">res.company</field>
+        <!-- Mewarisi form bawaan Odoo untuk perusahaan -->
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <!-- Menyisipkan grup baru khusus untuk konfigurasi periode -->
+            <xpath expr="//notebook/page[@name='general_info']" position="inside">
+                <group string="Master Period Settings" name="period_configuration">
+                    <field name="period_timezone" placeholder="e.g. Asia/Jakarta"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
