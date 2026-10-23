@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="lob_agriculture" model="res.partner.lob">
+            <field name="code">AGRI</field>
+            <field name="name">Agriculture</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_automotive" model="res.partner.lob">
+            <field name="code">AUTO</field>
+            <field name="name">Automotive</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_aviation" model="res.partner.lob">
+            <field name="code">AVIAT</field>
+            <field name="name">Aviation</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_banking" model="res.partner.lob">
+            <field name="code">BANK</field>
+            <field name="name">Banking</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_construction" model="res.partner.lob">
+            <field name="code">CONST</field>
+            <field name="name">Construction</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_consulting" model="res.partner.lob">
+            <field name="code">CONSU</field>
+            <field name="name">Consulting</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_ecommerce" model="res.partner.lob">
+            <field name="code">ECOMM</field>
+            <field name="name">E-commerce</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_edu" model="res.partner.lob">
+            <field name="code">EDU</field>
+            <field name="name">Education</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_energy" model="res.partner.lob">
+            <field name="code">ENERG</field>
+            <field name="name">Energy</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_entertainment" model="res.partner.lob">
+            <field name="code">ENTER</field>
+            <field name="name">Media &amp; Entertainment</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_fnb" model="res.partner.lob">
+            <field name="code">F&amp;B</field>
+            <field name="name">Food &amp; Beverage</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_fmcg" model="res.partner.lob">
+            <field name="code">FMCG</field>
+            <field name="name">FMCG</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_forestry" model="res.partner.lob">
+            <field name="code">FORES</field>
+            <field name="name">Forestry &amp; Paper</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_healthcare" model="res.partner.lob">
+            <field name="code">HEALT</field>
+            <field name="name">Healthcare</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_logistics" model="res.partner.lob">
+            <field name="code">LOG</field>
+            <field name="name">Logistics</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_maintenance" model="res.partner.lob">
+            <field name="code">SPT</field>
+            <field name="name">Maintenance &amp; Support</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_manufacture" model="res.partner.lob">
+            <field name="code">MANU</field>
+            <field name="name">Manufacture</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_mine" model="res.partner.lob">
+            <field name="code">MINE</field>
+            <field name="name">Mining</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_plantation" model="res.partner.lob">
+            <field name="code">PLANT</field>
+            <field name="name">Plantation</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_property" model="res.partner.lob">
+            <field name="code">PROP</field>
+            <field name="name">Real Estate</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_retail" model="res.partner.lob">
+            <field name="code">RETL</field>
+            <field name="name">Retail</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_services" model="res.partner.lob">
+            <field name="code">SRVC</field>
+            <field name="name">Managed Services</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_telco" model="res.partner.lob">
+            <field name="code">TELCO</field>
+            <field name="name">Telecommunications</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_textiles" model="res.partner.lob">
+            <field name="code">TEXT</field>
+            <field name="name">Textiles &amp; Garments</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_tourism" model="res.partner.lob">
+            <field name="code">TOUR</field>
+            <field name="name">Tourism &amp; Hotels</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_tech" model="res.partner.lob">
+            <field name="code">TECH</field>
+            <field name="name">Information Technology</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_legal" model="res.partner.lob">
+            <field name="code">LEGAL</field>
+            <field name="name">Legal Services</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_government" model="res.partner.lob">
+            <field name="code">GOV</field>
+            <field name="name">Government &amp; Public Sector</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_ngo" model="res.partner.lob">
+            <field name="code">NGO</field>
+            <field name="name">Non-Profit &amp; NGO</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_insurance" model="res.partner.lob">
+            <field name="code">INSUR</field>
+            <field name="name">Insurance</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_pharma" model="res.partner.lob">
+            <field name="code">PHARM</field>
+            <field name="name">Pharmaceuticals</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_chemicals" model="res.partner.lob">
+            <field name="code">CHEMI</field>
+            <field name="name">Chemicals</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_utilities" model="res.partner.lob">
+            <field name="code">UTIL</field>
+            <field name="name">Utilities</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_wholesale" model="res.partner.lob">
+            <field name="code">WHL</field>
+            <field name="name">Wholesale &amp; Distribution</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_transportation" model="res.partner.lob">
+            <field name="code">TRANS</field>
+            <field name="name">Transportation (Passenger)</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_maritime" model="res.partner.lob">
+            <field name="code">MRT</field>
+            <field name="name">Maritime &amp; Fisheries</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_heavy_equipment" model="res.partner.lob">
+            <field name="code">EQUP</field>
+            <field name="name">Heavy Equipment</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_engineering" model="res.partner.lob">
+            <field name="code">ENGIN</field>
+            <field name="name">Architecture &amp; Engineering</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_defense" model="res.partner.lob">
+            <field name="code">ADFD</field>
+            <field name="name">Aerospace &amp; Defense</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_bpo" model="res.partner.lob">
+            <field name="code">BPO</field>
+            <field name="name">Outsourcing &amp; BPO</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_media" model="res.partner.lob">
+            <field name="code">MEDIA</field>
+            <field name="name">Media &amp; Publishing</field>
+            <field name="islock">True</field>
+        </record>
+
+        <record id="lob_forwarder" model="res.partner.lob">
+            <field name="code">3PL</field>
+            <field name="name">Third-Party Logistics</field>
+            <field name="islock">True</field>
+        </record>
+    </data>
+</odoo>

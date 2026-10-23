@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- View project.task form -->
+    <record id="view_task_form2_inherit_custom" model="ir.ui.view">
+        <field name="name">project.task.form.inherit.custom</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//div[hasclass('oe_title')]/h1" position="after">
+                <h2>
+                    <field name="code" placeholder="Task Code"/>
+                </h2>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Task Properties" name="custom_task_properties">
+                    <group>
+                        <group string="Classification">
+                            <field name="project_type_id" options="{'no_create': True}"/>
+                            <field name="task_module_id" options="{'no_create': True}"/>
+                            <field name="type_task"/>
+                            <field name="level_class"/>
+                        </group>
+                        <group string="Technical Spec">
+                            <field name="is_bug" widget="boolean_toggle"/>
+                            <field name="diviculty_level"/>
+                        </group>
+                        <group string="Git Operations">
+                            <field name="mr_reqquest" widget="url"/>
+                            <field name="mr_state" widget="badge"
+                                   decoration-success="mr_state == 'prod'"
+                                   decoration-warning="mr_state == 'staging'"
+                                   decoration-danger="mr_state == 'conflict'"
+                                   decoration-info="mr_state == 'none'"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

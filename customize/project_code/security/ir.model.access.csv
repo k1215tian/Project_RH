@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_type_manager,project_type_manager,model_project_type,,1,1,1,1
+access_res_partner_lob_manager,res_partner_lob_manager,model_res_partner_lob,,1,1,1,1
+access_task_module_manager,task_module_manager,model_task_module,,1,1,1,1
+access_project_documents_manager,project_documents_manager,model_project_documents,,1,1,1,1

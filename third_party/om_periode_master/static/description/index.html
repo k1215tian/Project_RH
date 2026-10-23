@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>OM Master Periode</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <!-- Chart.js CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            :root {
+                --primary-color: #714b67;
+                --secondary-color: #017e84;
+                --bg-light: #f8f9fa;
+            }
+            body {
+                font-family:
+                    "Inter",
+                    system-ui,
+                    -apple-system,
+                    sans-serif;
+                color: #2d3748;
+            }
+            .text-primary-odoo {
+                color: var(--primary-color) !important;
+            }
+            .bg-primary-odoo {
+                background-color: var(--primary-color) !important;
+            }
+            .bg-secondary-odoo {
+                background-color: var(--secondary-color) !important;
+            }
+            .card-feature {
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                transition:
+                    transform 0.2s ease,
+                    box-shadow 0.2s ease;
+            }
+            .card-feature:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            }
+            .badge-period {
+                font-size: 0.85rem;
+                padding: 0.5em 0.8em;
+                border-radius: 6px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container py-4">
+            <!-- Header Banner -->
+            <div
+                class="text-center py-5 px-3 rounded-4 mb-5 text-white bg-primary-odoo shadow-sm"
+            >
+                <span
+                    class="badge bg-secondary-odoo text-white mb-2 px-3 py-2 text-uppercase fw-bold"
+                    >Odoo 18 Certified</span
+                >
+                <h1 class="display-4 fw-bold mb-3">OM Master Periode</h1>
+                <p class="lead max-w-700 mx-auto opacity-90">
+                    Enterprise Period & Calendar Management inspired by Odoo
+                    Fiscal Years with multi-company, multi-timezone automation.
+                </p>
+                <div class="mt-4">
+                    <span class="badge bg-light text-dark me-2 badge-period"
+                        ><i class="fa-solid fa-building me-1"></i>
+                        Multi-Company</span
+                    >
+                    <span class="badge bg-light text-dark me-2 badge-period"
+                        ><i class="fa-solid fa-chart-pie me-1"></i> Chart.js
+                        Analytics</span
+                    >
+                    <span class="badge bg-light text-dark badge-period"
+                        ><i class="fa-solid fa-robot me-1"></i> Fully
+                        Automated</span
+                    >
+                </div>
+            </div>
+
+            <!-- Overview & Chart.js Visual Section -->
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6">
+                    <h2 class="fw-bold mb-3 text-primary-odoo">
+                        Seamless Period & Calendar Control
+                    </h2>
+                    <p class="text-muted fs-5">
+                        <strong>OM Master Periode</strong> offers a centralized
+                        engine for managing custom operational periods.
+                        Generate, open, close, and archive fiscal periods
+                        automatically without manual server intervention.
+                    </p>
+                    <ul class="list-unstyled mt-3">
+                        <li class="mb-2">
+                            <i
+                                class="fa-solid fa-circle-check text-success me-2"
+                            ></i>
+                            Custom Start/End Calendar Rule (Jan 1 - Dec 31
+                            strictly)
+                        </li>
+                        <li class="mb-2">
+                            <i
+                                class="fa-solid fa-circle-check text-success me-2"
+                            ></i>
+                            Automatic state transition (Draft &rarr; Open &rarr;
+                            Closed &rarr; Archived)
+                        </li>
+                        <li class="mb-2">
+                            <i
+                                class="fa-solid fa-circle-check text-success me-2"
+                            ></i>
+                            Visual period distribution & analytics preview
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Chart.js Interactive Canvas -->
+                <div class="col-lg-6">
+                    <div
+                        class="p-4 rounded-4 bg-light border text-center shadow-sm"
+                    >
+                        <h5 class="fw-bold mb-3 text-primary-odoo">
+                            <i class="fa-solid fa-chart-pie me-2"></i>Annual
+                            Period Breakdown
+                        </h5>
+                        <div
+                            style="
+                                position: relative;
+                                height: 240px;
+                                width: 100%;
+                            "
+                        >
+                            <canvas id="periodChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Supported Period Types -->
+            <div class="row g-4 mb-5">
+                <div class="col-md-3">
+                    <div class="card h-100 card-feature p-3 text-center">
+                        <div class="text-primary-odoo fs-2 mb-2">
+                            <i class="fa-solid fa-calendar-week"></i>
+                        </div>
+                        <h5 class="fw-bold">Weekly</h5>
+                        <code class="text-primary-odoo fw-bold"
+                            >YYWww (52/year)</code
+                        >
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100 card-feature p-3 text-center">
+                        <div class="text-primary-odoo fs-2 mb-2">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </div>
+                        <h5 class="fw-bold">Monthly</h5>
+                        <code class="text-primary-odoo fw-bold"
+                            >YYMmm (12/year)</code
+                        >
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100 card-feature p-3 text-center">
+                        <div class="text-primary-odoo fs-2 mb-2">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h5 class="fw-bold">Quarterly</h5>
+                        <code class="text-primary-odoo fw-bold"
+                            >YYQ1 - YYQ4</code
+                        >
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100 card-feature p-3 text-center">
+                        <div class="text-primary-odoo fs-2 mb-2">
+                            <i class="fa-solid fa-calendar"></i>
+                        </div>
+                        <h5 class="fw-bold">Yearly</h5>
+                        <code class="text-primary-odoo fw-bold"
+                            >YYYY (Fiscal)</code
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="card h-100 card-feature p-4">
+                        <div class="text-primary-odoo fs-1 mb-3">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <h4 class="fw-bold h5">Automated Workflows</h4>
+                        <p class="text-muted small">
+                            Daily crons evaluate active dates to open running
+                            periods and close/archive past dates without human
+                            error.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 card-feature p-4">
+                        <div class="text-primary-odoo fs-1 mb-3">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h4 class="fw-bold h5">Strict Integrity & Security</h4>
+                        <p class="text-muted small">
+                            SQL constraints prevent date overlaps, while
+                            read-only UI controls protect audit history across
+                            all user levels.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 card-feature p-4">
+                        <div class="text-primary-odoo fs-1 mb-3">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+                        <h4 class="fw-bold h5">Multi-Timezone Support</h4>
+                        <p class="text-muted small">
+                            Configurable per-company timezones in
+                            <code class="text-dark">res.company</code> ensure
+                            accurate period roll-over worldwide.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Specifications & Author -->
+            <div class="border-top pt-4 mt-5">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-muted small">
+                        <p class="mb-1">
+                            <strong>Author:</strong> Kristian Maulana
+                        </p>
+                        <p class="mb-0">
+                            <strong>License:</strong> LGPL-3 |
+                            <strong>Odoo Version:</strong> 18.0
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-md-end text-muted small">
+                        <p class="mb-0">
+                            &copy; 2026 Kristian Maulana. All rights reserved.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Script Inisialisasi Chart.js -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const ctx = document
+                    .getElementById("periodChart")
+                    .getContext("2d")
+                new Chart(ctx, {
+                    type: "doughnut",
+                    data: {
+                        labels: [
+                            "Closed Periods",
+                            "Active Period",
+                            "Draft / Future",
+                        ],
+                        datasets: [
+                            {
+                                data: [38, 4, 10],
+                                backgroundColor: [
+                                    "#714B67",
+                                    "#017E84",
+                                    "#E2E8F0",
+                                ],
+                                borderWidth: 2,
+                                borderColor: "#ffffff",
+                            },
+                        ],
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: "bottom",
+                                labels: {
+                                    boxWidth: 12,
+                                    padding: 15,
+                                    font: {
+                                        family: "Inter",
+                                        size: 12,
+                                    },
+                                },
+                            },
+                        },
+                        cutout: "70%",
+                    },
+                })
+            })
+        </script>
+    </body>
+</html>

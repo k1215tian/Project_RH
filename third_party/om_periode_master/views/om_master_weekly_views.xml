@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Search View -->
+    <record id="view_om_master_weekly_search" model="ir.ui.view">
+        <field name="name">om.master.weekly.search</field>
+        <field name="model">om.master.weekly</field>
+        <field name="arch" type="xml">
+            <search string="Search Weekly Periods">
+                <field name="code"/>
+                <field name="year"/>
+                <field name="week_number"/>
+                <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Open" name="open" domain="[('state', '=', 'open')]"/>
+                <filter string="Closed" name="closed" domain="[('state', '=', 'closed')]"/>
+                <separator/>
+                <filter string="Archived / Inactive" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Year" name="group_year" context="{'group_by': 'year'}"/>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_om_master_weekly_form" model="ir.ui.view">
+        <field name="name">om.master.weekly.form</field>
+        <field name="model">om.master.weekly</field>
+        <field name="arch" type="xml">
+            <form string="Weekly Period" create="0" edit="0" delete="0">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,open,closed"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="code" string="Period Code"/>
+                        <h1>
+                            <field name="code" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Period Details">
+                            <field name="year" readonly="1"/>
+                            <field name="week_number" string="Week Number" readonly="1"/>
+                            <field name="date_start" readonly="1"/>
+                            <field name="date_end" readonly="1"/>
+                        </group>
+                        <group string="System &amp; Organization">
+                            <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                            <field name="active" widget="boolean_toggle" invisible="1" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_om_master_weekly_tree" model="ir.ui.view">
+        <field name="name">om.master.weekly.tree</field>
+        <field name="model">om.master.weekly</field>
+        <field name="arch" type="xml">
+            <list string="Weekly Periods" create="0" edit="1" delete="0" decoration-info="state == 'draft'" decoration-success="state == 'open'" decoration-muted="state == 'closed' and active == True" decoration-danger="active == False">
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="code" decoration-bf="1"/>
+                <field name="year"/>
+                <field name="week_number"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'open'" decoration-muted="state == 'closed'"/>
+                <field name="active" widget="boolean_toggle" readonly="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_om_master_weekly" model="ir.actions.act_window">
+        <field name="name">Weekly Periods</field>
+        <field name="res_model">om.master.weekly</field>
+        <field name="view_mode">list,form</field>
+        <!-- active_test: False memastikan data dengan active=False tetap muncul di tree -->
+        <field name="context">{'active_test': False, 'search_default_group_year': 1}</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_om_master_weekly_action" name="Weekly" parent="menu_periode_settings_root" action="action_om_master_weekly" sequence="10"/>
+</odoo>
