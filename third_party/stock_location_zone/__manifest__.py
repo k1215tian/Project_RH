@@ -8,7 +8,7 @@
     "author": "BCIM, Okia, Camptocamp, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-warehouse",
     "summary": "Classify locations with zones.",
-    "category": "Warehouse",
+    "category": "Inventory/Inventory",
     "depends": ["stock"],
     "data": ["views/stock_location.xml"],
     "installable": True,

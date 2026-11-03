@@ -13,6 +13,7 @@ class TaskModule(models.Model):
 
     name = fields.Char('Module')
     code = fields.Char('Code')
+    menu = fields.Char('Menu')
     parent_id = fields.Many2one('task.module', 'Parent')
     child_ids = fields.One2many('task.module', 'parent_id', 'Sub Module')
     color = fields.Integer(

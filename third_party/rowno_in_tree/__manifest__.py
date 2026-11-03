@@ -2,7 +2,7 @@
     "name": "Row Number in tree/list view",
     "version": "18.0.0.0.1",
     "summary": "Show row number in tree/list view.",
-    "category": "Other",
+    "category": "Uncategorized",
     "depends": ["web"],
     "data": [
     ],

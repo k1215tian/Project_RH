@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_picking_type_form" model="ir.ui.view">
+        <field name="name">Operation Types</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+            <field name="move_type" position="after">
+                <field name="auto_replenishment" invisible="code != 'internal'"/>
+            </field>
+            <notebook position="inside">
+                <page string="Auto Replenishment" name="auto_replenishment" invisible="not auto_replenishment or code != 'internal'">
+                    <field name="auto_replenishment_line_ids">
+                        <list editable="bottom">
+                            <field name="product_id"/>
+                            <field name="qty_on_hand"/>
+                            <field name="qty_forecast"/>
+                            <field name="qty_min"/>
+                            <field name="qty_to_replenish"/>
+                            <field name="period_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        </list>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

@@ -4,7 +4,7 @@
     "name": "Location Trays",
     "summary": "Organize a location as a matrix of cells",
     "version": "18.0.1.0.0",
-    "category": "Stock",
+    "category": "Inventory/Inventory",
     "author": "Camptocamp, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "depends": ["stock", "base_sparse_field"],

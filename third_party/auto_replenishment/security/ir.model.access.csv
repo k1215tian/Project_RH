@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_auto_replenishment_line,access.auto.replenishment.line,model_auto_replenishment_line,base.group_user,1,1,1,1
+access_auto_replenishment_period_tag,access.auto.replenishment.period.tag,model_auto_replenishment_period_tag,base.group_user,1,1,1,1

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_schedule_reporting_schedule_reporting,schedule_reporting.schedule_reporting,model_schedule_reporting_schedule_reporting,base.group_user,1,1,1,1
