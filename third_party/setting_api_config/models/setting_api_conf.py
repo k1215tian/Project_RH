@@ -39,6 +39,7 @@ class SettingApiConf(models.Model):
         ('communication', 'Communication'),
         ('storage', 'Cloud Storage'),
         ('social', 'Social Media'),
+        ('e-commerce', 'E-Commerce'),
         ('other', 'Other'),
     ], string='API Type', default='other', required=True)
 

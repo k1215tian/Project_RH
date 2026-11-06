@@ -16,14 +16,16 @@
         'base',
         'mail',
     ],
-    'data': [
-        'security/ir.model.access.csv',
-        'data/ir_sequence_data.xml',
-        'data/ir_cron_data.xml',
-        'views/setting_api_conf_views.xml',
-        'views/api_usage_log_views.xml',
-        'views/api_usage_menu.xml',
-        'views/api_quota_reset_log_views.xml'
+    "data": [
+        "data/ir_cron_data.xml",
+        "data/ir_sequence_data.xml",
+        "security/ir.model.access.csv",
+        "views/api_quota_reset_log_views.xml",
+        "views/api_usage_log_views.xml",
+        "views/api_usage_menu.xml",
+        "views/api_webhook_handler_views.xml",
+        "views/setting_api_conf_views.xml",
+        "views/templates.xml"
     ],
     'installable': True,
     'application': True,
