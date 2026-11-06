@@ -1,0 +1,4 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_setting_api_conf_manager,setting_api_conf_manager,model_setting_api_conf,base.group_system,1,1,1,1
+access_api_usage_log_manager,api_usage_log_manager,model_api_usage_log,base.group_system,1,1,1,1
+access_api_quota_reset_log_manager,api_quota_reset_log_manager,model_api_quota_reset_log,base.group_system,1,1,1,1

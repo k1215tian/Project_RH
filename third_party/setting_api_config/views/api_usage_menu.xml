@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_api_management_root"
+              name="API Management"
+              sequence="50"
+              parent="base.menu_administration"
+              groups="base.group_system"/>
+
+    <menuitem id="menu_api_configuration"
+              name="Configurations"
+              parent="menu_api_management_root"
+              action="action_setting_api_conf"
+              sequence="10"
+              groups="base.group_system"/>
+
+    <menuitem id="menu_api_usage_logs"
+              name="Usage Logs"
+              parent="menu_api_management_root"
+              action="action_api_usage_log"
+              sequence="20"
+              groups="base.group_system"/>
+
+</odoo>

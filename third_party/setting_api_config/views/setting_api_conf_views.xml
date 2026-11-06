@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================== -->
+    <!-- LIST VIEW                      -->
+    <!-- ============================== -->
+
+    <record id="view_setting_api_conf_list" model="ir.ui.view">
+        <field name="name">setting.api.conf.list</field>
+        <field name="model">setting.api.conf</field>
+        <field name="arch" type="xml">
+            <list string="API Configurations" decoration-success="active" decoration-muted="not active">
+
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="api_type" widget="badge"/>
+                <field name="auth_type"/>
+                <field name="server_url" optional="hide"/>
+
+                <field name="usable_requests" string="Remaining"/>
+
+                <field name="limit_request" string="Request Limit"/>
+
+                <field name="usage_percentage" widget="progressbar" string="Usage"/>
+
+                <field name="total_requests"/>
+                <field name="successful_requests" optional="hide"/>
+                <field name="failed_requests" optional="hide"/>
+
+                <field name="reset_period"/>
+                <field name="active" widget="boolean_toggle"/>
+
+            </list>
+        </field>
+    </record>
+
+
+    <!-- ============================== -->
+    <!-- KANBAN VIEW                    -->
+    <!-- ============================== -->
+
+    <record id="view_setting_api_conf_kanban" model="ir.ui.view">
+        <field name="name">setting.api.conf.kanban</field>
+        <field name="model">setting.api.conf</field>
+        <field name="arch" type="xml">
+
+            <kanban default_group_by="api_type">
+
+                <field name="name"/>
+                <field name="api_type"/>
+                <field name="auth_type"/>
+                <field name="server_url"/>
+                <field name="active"/>
+                <field name="usable_requests"/>
+                <field name="limit_request"/>
+                <field name="usage_percentage"/>
+                <field name="remaining_percentage"/>
+                <field name="total_requests"/>
+                <field name="successful_requests"/>
+                <field name="failed_requests"/>
+                <field name="reset_period"/>
+                <field name="company_id"/>
+
+                <templates>
+
+                    <t t-name="card">
+
+                        <div class="oe_kanban_global_click">
+
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+
+                                <strong class="fs-5">
+                                    <field name="name"/>
+                                </strong>
+
+                                <field name="active" widget="boolean_toggle"/>
+
+                            </div>
+
+                            <div class="mb-2">
+
+                                <span class="badge text-bg-primary">
+                                    <field name="api_type"/>
+                                </span>
+
+                                <span class="badge text-bg-secondary ms-1">
+                                    <field name="auth_type"/>
+                                </span>
+
+                            </div>
+
+                            <div class="text-muted small mb-3">
+                                <field name="server_url"/>
+                            </div>
+
+                            <div class="row g-2 mb-3">
+
+                                <div class="col-6">
+                                    <div class="border rounded p-2">
+                                        <div class="text-muted small">
+                                            Remaining Requests
+                                        </div>
+                                        <strong class="fs-4">
+                                            <field name="usable_requests"/>
+                                        </strong>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="border rounded p-2">
+                                        <div class="text-muted small">
+                                            Request Limit
+                                        </div>
+                                        <strong class="fs-4">
+                                            <field name="limit_request"/>
+                                        </strong>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="mb-2">
+
+                                <div class="d-flex justify-content-between">
+
+                                    <span class="text-muted small">
+                                        API Usage
+                                    </span>
+
+                                    <strong>
+                                        <field name="usage_percentage"/>
+%
+                                    </strong>
+
+                                </div>
+
+                                <field name="usage_percentage" widget="progressbar"/>
+
+                            </div>
+
+                            <div class="row text-center mt-3">
+
+                                <div class="col-4">
+                                    <strong>
+                                        <field name="total_requests"/>
+                                    </strong>
+                                    <div class="text-muted small">
+                                        Total
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <strong class="text-success">
+                                        <field name="successful_requests"/>
+                                    </strong>
+                                    <div class="text-muted small">
+                                        Success
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <strong class="text-danger">
+                                        <field name="failed_requests"/>
+                                    </strong>
+                                    <div class="text-muted small">
+                                        Failed
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center border-top mt-3 pt-2">
+
+                                <span class="text-muted small">
+                                    Reset:
+                                    <field name="reset_period"/>
+                                </span>
+
+                                <span class="text-muted small">
+                                    <field name="company_id"/>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </t>
+
+                </templates>
+
+            </kanban>
+
+        </field>
+    </record>
+
+
+    <!-- ============================== -->
+    <!-- FORM VIEW                      -->
+    <!-- ============================== -->
+
+    <record id="view_setting_api_conf_form" model="ir.ui.view">
+
+        <field name="name">setting.api.conf.form</field>
+        <field name="model">setting.api.conf</field>
+
+        <field name="arch" type="xml">
+
+            <form string="API Configuration">
+
+                <header>
+
+                    <button name="action_reset_quota" type="object" string="Reset Quota" class="btn-primary" icon="fa-refresh" confirm="Are you sure you want to reset the API quota?"/>
+
+                    <field name="active" widget="boolean_toggle"/>
+
+                </header>
+
+                <sheet>
+
+                    <div class="oe_button_box" name="button_box">
+
+                    </div>
+
+                    <div class="oe_title">
+
+                        <label for="name"/>
+
+                        <h1>
+                            <field name="name" placeholder="API Configuration Name"/>
+                        </h1>
+
+                    </div>
+
+                    <group>
+
+                        <group string="General Information">
+
+                            <field name="company_id" groups="base.group_multi_company"/>
+
+                            <field name="api_type"/>
+
+                            <field name="auth_type"/>
+
+                            <field name="registration_number"/>
+
+                            <field name="account_id"/>
+
+                        </group>
+
+                        <group string="Connection Settings">
+
+                            <field name="server_url"/>
+
+                            <field name="api_key" password="True" groups="base.group_system"/>
+
+                            <field name="timeout"/>
+
+                            <field name="verify_ssl"/>
+
+                            <field name="date_format"/>
+
+                        </group>
+
+                    </group>
+
+                    <notebook>
+
+                        <!-- QUOTA MANAGEMENT -->
+
+                        <page string="Quota Management" name="quota_management">
+
+                            <group>
+
+                                <group string="Request Limits">
+
+                                    <field name="limit_request"/>
+
+                                    <field name="usable_requests"/>
+
+                                    <field name="reset_period"/>
+
+                                </group>
+
+                                <group string="Reset Information">
+
+                                    <field name="last_reset_date" readonly="True"/>
+
+                                    <field name="next_reset_date" readonly="True"/>
+
+                                </group>
+
+                            </group>
+
+                            <group string="Quota Usage">
+
+                                <field name="usage_percentage" widget="progressbar"/>
+
+                                <field name="remaining_percentage" widget="progressbar"/>
+
+                            </group>
+
+                        </page>
+
+
+                        <!-- USAGE STATISTICS -->
+
+                        <page string="Usage Statistics" name="usage_statistics">
+
+                            <group>
+
+                                <group string="Request Statistics">
+
+                                    <field name="total_requests"/>
+
+                                    <field name="successful_requests"/>
+
+                                    <field name="failed_requests"/>
+
+                                </group>
+
+                                <group string="Token Statistics">
+
+                                    <field name="total_input_tokens"/>
+
+                                    <field name="total_output_tokens"/>
+
+                                    <field name="total_thinking_tokens"/>
+
+                                    <field name="total_tokens"/>
+
+                                </group>
+
+                            </group>
+
+                        </page>
+
+
+                        <!-- API USAGE LOGS -->
+
+                        <page string="API Usage Logs" name="api_usage_logs">
+
+                            <field name="log_ids" readonly="True">
+
+                                <list create="false" edit="false" delete="false">
+
+                                    <field name="create_date"/>
+
+                                    <field name="endpoint"/>
+
+                                    <field name="method"/>
+
+                                    <field name="state" widget="badge"/>
+
+                                    <field name="status_code"/>
+
+                                    <field name="input_tokens"/>
+
+                                    <field name="output_tokens"/>
+
+                                    <field name="total_tokens"/>
+
+                                </list>
+
+                            </field>
+
+                        </page>
+
+
+                        <!-- RESET HISTORY -->
+
+                        <page string="Reset History" name="reset_history">
+
+                            <field name="reset_history_ids" readonly="True">
+
+                                <list create="false" edit="false" delete="false">
+
+                                    <field name="reset_date"/>
+
+                                    <field name="reset_type"/>
+
+                                    <field name="old_quota"/>
+
+                                    <field name="new_quota"/>
+
+                                    <field name="user_id"/>
+
+                                </list>
+
+                            </field>
+
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+
+                <chatter/>
+
+            </form>
+
+        </field>
+
+    </record>
+
+
+    <!-- ============================== -->
+    <!-- SEARCH VIEW                    -->
+    <!-- ============================== -->
+
+    <record id="view_setting_api_conf_search" model="ir.ui.view">
+
+        <field name="name">setting.api.conf.search</field>
+        <field name="model">setting.api.conf</field>
+
+        <field name="arch" type="xml">
+
+            <search string="Search API Configurations">
+
+                <field name="name"/>
+                <field name="server_url"/>
+                <field name="registration_number"/>
+                <field name="account_id"/>
+
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+
+                <filter name="inactive" string="Inactive" domain="[('active', '=', False)]"/>
+
+                <separator/>
+
+                <filter name="ai" string="AI" domain="[('api_type', '=', 'ai')]"/>
+
+                <filter name="payment" string="Payment" domain="[('api_type', '=', 'payment')]"/>
+
+                <filter name="shipping" string="Shipping" domain="[('api_type', '=', 'shipping')]"/>
+
+                <filter name="communication" string="Communication" domain="[('api_type', '=', 'communication')]"/>
+
+                <separator/>
+
+                <filter name="quota_exhausted" string="Quota Exhausted" domain="[('usable_requests', '=', 0)]"/>
+
+                <group expand="0" string="Group By">
+
+                    <filter name="group_api_type" string="API Type" context="{'group_by': 'api_type'}"/>
+
+                    <filter name="group_auth_type" string="Authentication" context="{'group_by': 'auth_type'}"/>
+
+                    <filter name="group_company" string="Company" context="{'group_by': 'company_id'}"/>
+
+                </group>
+
+            </search>
+
+        </field>
+
+    </record>
+
+
+    <!-- ============================== -->
+    <!-- WINDOW ACTION                  -->
+    <!-- ============================== -->
+
+    <record id="action_setting_api_conf" model="ir.actions.act_window">
+
+        <field name="name">API Configurations</field>
+
+        <field name="res_model">setting.api.conf</field>
+
+        <field name="view_mode">kanban,list,form</field>
+
+        <field name="search_view_id" ref="view_setting_api_conf_search"/>
+
+        <field name="context">
+            {'search_default_active': 1}
+        </field>
+
+        <field name="help" type="html">
+
+            <p class="o_view_nocontent_smiling_face">
+                Create your first API Configuration!
+            </p>
+
+            <p>
+                Manage external API connections, authentication,
+                request quotas and API usage statistics.
+            </p>
+
+        </field>
+
+    </record>
+
+</odoo>

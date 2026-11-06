@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="seq_api_usage_log" model="ir.sequence">
+        <field name="name">API Usage Log</field>
+        <field name="code">api.usage.log</field>
+        <field name="prefix">API/LOG/</field>
+        <field name="padding">6</field>
+    </record>
+
+</odoo>
