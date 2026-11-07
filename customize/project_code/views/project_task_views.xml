@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
-    <!-- View project.task form -->
+
     <record id="view_task_form2_inherit_custom" model="ir.ui.view">
         <field name="name">project.task.form.inherit.custom</field>
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.view_task_form2"/>
         <field name="arch" type="xml">
-            
+
+            <!-- Task Code -->
             <xpath expr="//div[hasclass('oe_title')]/h1" position="after">
                 <h2>
                     <field name="code" placeholder="Task Code"/>
                 </h2>
             </xpath>
-
+            <!-- <xpath expr="//field[@name='project_id']" position="attributes">
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+            </xpath> -->
+            <xpath expr="//header" position="inside">
+                <button name="action_generate_timesheet" type="object" string="Generate Timesheet" class="oe_highlight" groups="project.group_project_manager"/>
+            </xpath>
             <xpath expr="//notebook" position="inside">
                 <page string="Task Properties" name="custom_task_properties">
                     <group>
@@ -23,21 +28,45 @@
                             <field name="type_task"/>
                             <field name="level_class"/>
                         </group>
+
                         <group string="Technical Spec">
                             <field name="is_bug" widget="boolean_toggle"/>
                             <field name="diviculty_level"/>
                         </group>
+
                         <group string="Git Operations">
                             <field name="mr_reqquest" widget="url"/>
-                            <field name="mr_state" widget="badge"
-                                   decoration-success="mr_state == 'prod'"
-                                   decoration-warning="mr_state == 'staging'"
-                                   decoration-danger="mr_state == 'conflict'"
-                                   decoration-info="mr_state == 'none'"/>
+                            <field name="mr_reqquest_conflict" widget="url"/>
+                            <field name="mr_state" widget="badge" decoration-success="mr_state == 'prod'" decoration-warning="mr_state == 'staging'" decoration-danger="mr_state == 'conflict'" decoration-info="mr_state == 'none'"/>
                         </group>
                     </group>
                 </page>
+
+                <!-- Timesheet Slots -->
+                <page string="Timesheet Slots" name="timesheet_slots" groups="project.group_project_manager">
+                    <group>
+                        <field name="planned_mandays"/>
+                        <field name="timesheet_slot_count" readonly="1"/>
+                    </group>
+                    <field name="timesheet_slot_ids" context="{'default_task_id': id}">
+                        <list editable="bottom" decoration-success="state == 'done'">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name" column_invisible="True"/>
+                            <field name="employee_id" options="{'no_create': True, 'no_open': True, 'no_edit': True, 'no_create_edit': True}"/>
+                            <field name="work_date" required="employee_id != False"/>
+                            <field name="start_time" widget="float_time" required="employee_id != False"/>
+                            <field name="end_time" widget="float_time" required="employee_id != False"/>
+                            <field name="duration" readonly="1"/>
+                            <field name="state" widget="badge"/>
+                            <button name="action_create_timesheet" type="object" string="Create" icon="fa-check" invisible="state == 'done'"/>
+                        </list>
+
+                    </field>
+
+                </page>
+
             </xpath>
+
         </field>
     </record>
 
