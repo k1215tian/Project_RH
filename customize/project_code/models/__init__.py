@@ -8,3 +8,4 @@ from . import res_partner
 from . import res_partner_lob
 from . import task_module
 from . import crm_team
+from . import project_stock

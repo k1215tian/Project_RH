@@ -12,15 +12,31 @@ class ProjectProject(models.Model):
 
     project_type_id = fields.Many2one(
         string="Project Type",
-        comodel_name='project.type', track_visibility='onchange')
+        comodel_name='project.type', tracking=True)
     code = fields.Char(string="Project Code")
     description = fields.Text(string="Description")
     user_id = fields.Many2one(
         'res.users', string='Project Manager',
-        default=lambda self: self.env.user, track_visibility='onchange')
+        default=lambda self: self.env.user, tracking=True)
     project_lead_id = fields.Many2one(
         'res.users',
         string="Project Leader")
+
+    # ----------------------------------------------------------------
+    # If using hr.employee instead of res.users:
+    # - Add 'hr' as a module dependency in __manifest__.py.
+    # - Apply a domain to ensure only employees linked to an Odoo user
+    #   account can be selected.
+    # - Optionally, add additional domain conditions to restrict the
+    #   selection to employees eligible to manage the project.
+    # ----------------------------------------------------------------
+
+    # project_lead_id = fields.Many2one(
+    #     comodel_name='hr.employee',
+    #     string="Project Leader",
+    #     domain="[('user_id', '!=', False)]"
+    # )
+
     privacy_visibility = fields.Selection([
         ('followers', 'Invited internal users (private)'),
         ('employees', 'All internal users'),
@@ -42,8 +58,31 @@ class ProjectProject(models.Model):
         "provided that they are given the corresponding URL (and that they are part of the followers if the project is private).")
     project_link = fields.Char(
         string="Project Link")
-    currency_id = fields.Many2one('res.currency')
-    contract_value = fields.Monetary(String="Contract Values")
+
+    @api.depends('account_id.company_id', 'partner_id.company_id')
+    def _compute_company_id(self):
+        for project in self:
+            # if a new restriction is put on the account or the customer, the restriction on the project is updated.
+            if project.account_id.company_id:
+                project.company_id = project.account_id.company_id
+            if not project.company_id and project.partner_id.company_id:
+                project.company_id = project.partner_id.company_id
+
+    @api.depends_context('company')
+    @api.depends('company_id')
+    def _compute_currency_id(self):
+        default_currency_id = self.env.company.currency_id
+        for project in self:
+            project.currency_id = project.company_id.currency_id or default_currency_id
+
+    company_id = fields.Many2one('res.company', string='Company', compute="_compute_company_id",
+                                 inverse="_inverse_company_id", store=True, readonly=False)
+    currency_id = fields.Many2one('res.currency', compute="_compute_currency_id",
+                                  string="Currency", readonly=True, export_string_translation=False)
+    contract_value = fields.Monetary(
+        string="Contract Value",
+        currency_field="currency_id",
+    )
     validator_ids = fields.Many2many(
         'hr.employee',
         'project_validator_rel',
@@ -58,7 +97,32 @@ class ProjectProject(models.Model):
         'employee_id',
         domain="[('user_id','!=', False), ('user_id', 'in', member_ids)]",
         string='Approver')
+
     account_manager_id = fields.Many2one('res.users', string="CRO")
+    background = fields.Text(string='Reason Project',)
+    expected_result = fields.Text(string='Expected Result Project')
+    current_issue = fields.Text(string='Current Issue')
+    notes = fields.Text(
+        string='Notes / Remarks Project',)
+    doc_language = fields.Selection([('indonesia', 'Indonesia'),
+                                    ('english', 'English')],
+                                    string='Proposal Language',)
+
+    # ----------------------------------------------------------------
+    # If using hr.employee instead of res.users:
+    # - Add 'hr' as a module dependency in __manifest__.py.
+    # - Apply a domain to ensure only employees linked to an Odoo user
+    #   account can be selected.
+    # - Optionally, add additional domain conditions to restrict the
+    #   selection to employees eligible to manage the project.
+    # ----------------------------------------------------------------
+
+    # account_manager_id = fields.Many2one(
+    #     comodel_name='hr.employee',
+    #     string="CRO",
+    #     domain="[('user_id', '!=', False)]"
+    # )
+
     document_ids = fields.One2many(
         'project.documents',
         'project_id',
@@ -94,6 +158,13 @@ class ProjectProject(models.Model):
         domain=[("team_type", "=", "project")],
     )
 
+    move_ids = fields.Many2one(
+        comodel_name="stock.move",
+        string="Product COGS",
+        help="List of stock moves related to this project.",
+        ondelete="cascade",
+    )
+
     @api.onchange("team_id")
     def _onchange_team_id(self):
         if self.team_id:
@@ -124,7 +195,8 @@ class ProjectProject(models.Model):
 
         for project in self:
             project._sync_project_followers(
-                old_members=old_members_map.get(project.id, self.env["res.users"]),
+                old_members=old_members_map.get(
+                    project.id, self.env["res.users"]),
                 new_members=project.member_ids,
                 send_notification=True,
             )
@@ -137,7 +209,8 @@ class ProjectProject(models.Model):
         removed_members = old_members - new_members
         added_members = new_members - old_members
         if removed_members:
-            self.message_unsubscribe(partner_ids=removed_members.partner_id.ids)
+            self.message_unsubscribe(
+                partner_ids=removed_members.partner_id.ids)
 
         if added_members:
             self.message_subscribe(partner_ids=added_members.partner_id.ids)
@@ -149,7 +222,8 @@ class ProjectProject(models.Model):
         """Send notification email to newly added members."""
         self.ensure_one()
 
-        template = self.env.ref("project_team.project_new_member", raise_if_not_found=False)
+        template = self.env.ref(
+            "project_team.project_new_member", raise_if_not_found=False)
         if not template:
             return
         valid_members = members.filtered(lambda u: u.partner_id.email)
