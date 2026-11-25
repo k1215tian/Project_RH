@@ -1,4 +1,9 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 access_setting_api_conf_manager,setting_api_conf_manager,model_setting_api_conf,base.group_system,1,1,1,1
 access_api_usage_log_manager,api_usage_log_manager,model_api_usage_log,base.group_system,1,1,1,1
-access_api_quota_reset_log_manager,api_quota_reset_log_manager,model_api_quota_reset_log,base.group_system,1,1,1,1access_api_webhook_handler_manager,api_webhook_handler_manager,model_api_webhook_handler,,1,1,1,1
+access_api_quota_reset_log_manager,api_quota_reset_log_manager,model_api_quota_reset_log,base.group_system,1,1,1,1
+access_api_credential_manager,api_credential_manager,model_api_credential,base.group_system,1,1,1,1
+access_api_endpoint_manager,api_endpoint_manager,model_api_endpoint,base.group_system,1,1,1,1
+access_api_customer_manager,api_customer_manager,model_api_customer,base.group_system,1,1,1,1
+access_api_callback_log_manager,api_callback_log_manager,model_api_callback_log,,1,1,1,1
+access_api_provider_handler_manager,api_provider_handler_manager,model_api_provider_handler,,1,1,1,1

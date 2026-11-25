@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Module category (Odoo 17/18 pattern) -->
+    <record id="module_category_excalidraw_for_odoo" model="ir.module.category">
+        <field name="name">Excalidraw</field>
+        <field name="sequence">60</field>
+    </record>
+
+    <!-- Security groups (classic category_id pattern) -->
+    <record id="group_excalidraw_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="module_category_excalidraw_for_odoo"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="comment">Can create and edit Excalidraw drawings.</field>
+    </record>
+
+    <record id="group_excalidraw_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_category_excalidraw_for_odoo"/>
+        <field name="implied_ids" eval="[(4, ref('group_excalidraw_user'))]"/>
+        <field name="comment">Can also delete Excalidraw drawings.</field>
+    </record>
+</odoo>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- ============================================================
+         Picker dialog: list the record's .excalidraw attachments and
+         open the editor on an existing scene or on a fresh one.
+         ============================================================ -->
+    <t t-name="excalidraw_for_odoo.PickerDialog" owl="1">
+        <div>
+            <Dialog title="dialogTitle" contentClass="'o-excalidraw-picker-dialog'">
+                <div t-if="state.loading" class="d-flex align-items-center justify-content-center p-4">
+                    <span class="spinner-border me-2" role="status"/>
+                    <span t-esc="labels.loading"/>
+                </div>
+                <t t-else="">
+                    <t t-if="state.attachments.length === 0">
+                        <div class="o-excalidraw-picker-empty text-center text-muted p-4">
+                            <i class="fa fa-pencil fa-2x mb-2 d-block" aria-hidden="true"/>
+                            <t t-esc="labels.empty"/>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <div class="o-excalidraw-picker-list list-group">
+                            <t t-foreach="state.attachments" t-as="att" t-key="att.id">
+                                <button
+                                    type="button"
+                                    class="o-excalidraw-picker-row list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                                    t-att-title="labels.open"
+                                    t-att-aria-label="labels.open"
+                                    t-att-disabled="state.openingId !== null"
+                                    t-on-click="() => this.onOpenExisting(att)"
+                                >
+                                    <span class="o-excalidraw-picker-name text-truncate" t-esc="att.name"/>
+                                    <span class="d-flex align-items-center gap-2">
+                                        <span
+                                            t-if="state.openingId === att.id"
+                                            class="spinner-border spinner-border-sm"
+                                            role="status"
+                                        />
+                                        <small class="text-muted text-nowrap" t-esc="formatStamp(att)"/>
+                                    </span>
+                                </button>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+                <t t-set-slot="footer">
+                    <button type="button" class="btn btn-primary" t-on-click="onNew">
+                        <i class="fa fa-plus me-1" aria-hidden="true"/>
+                        <t t-esc="labels.new"/>
+                    </button>
+                    <button type="button" class="btn btn-secondary" t-on-click="() => this.data.close()">
+                        <t t-esc="labels.close"/>
+                    </button>
+                </t>
+            </Dialog>
+        </div>
+    </t>
+
+    <!-- ============================================================
+         Editor dialog: fullscreen web Dialog hosting the vendored
+         React Excalidraw bundle (toolbar/spinner markup reused from
+         the legacy standalone field widget template).
+         ============================================================ -->
+    <t t-name="excalidraw_for_odoo.EditorDialog" owl="1">
+        <div>
+            <Dialog
+                title="dialogTitle"
+                fullscreen="true"
+                size="fullscreen"
+                contentClass="'o-excalidraw-editor-dialog-content'"
+                withBodyPadding="false"
+                footer="false"
+            >
+                <div class="o_excalidraw_editor_wrap" t-on-keydown="containKeydown">
+                    <div t-if="state.error" class="alert alert-danger mb-2" role="alert" t-esc="state.error"/>
+                    <div class="o_excalidraw_toolbar d-flex justify-content-end mb-1">
+                        <button
+                            type="button"
+                            class="o_excalidraw_theme_toggle btn btn-sm"
+                            t-on-click="toggleTheme"
+                            t-att-title="themeTooltip"
+                            t-att-aria-label="themeTooltip"
+                        >
+                            <svg t-if="effectiveTheme === 'dark'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="5"/>
+                                <line x1="12" y1="1" x2="12" y2="3"/>
+                                <line x1="12" y1="21" x2="12" y2="23"/>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                                <line x1="1" y1="12" x2="3" y2="12"/>
+                                <line x1="21" y1="12" x2="23" y2="12"/>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                            </svg>
+                            <svg t-else="" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="o_excalidraw_canvas_wrap position-relative">
+                        <div class="o_excalidraw_canvas" t-ref="excalidraw_container"/>
+                        <div
+                            t-if="state.loading"
+                            class="o_excalidraw_spinner position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
+                        >
+                            <span class="spinner-border me-2" role="status"/>
+                            <span t-esc="loadingLabel"/>
+                        </div>
+                    </div>
+                </div>
+            </Dialog>
+        </div>
+    </t>
+
+    <!-- ============================================================
+         Chatter topbar extension: drawing button AFTER the paperclip.
+         Primary anchor per design §3.3 — extend the mail.Chatter.attachFiles
+         sub-template (its whole surface is that one button; the two t-call
+         sites are mutually exclusive branches, so the button renders exactly
+         once per chatter, next to the paperclip in both states).
+         V-3 (apply check): in the zero-attachment branch this sub-template is
+         rendered inside web.FileUploader's toggler slot, whose span carries
+         t-on-click.prevent="onSelectFileButtonClick" (opens the OS file
+         dialog). Our own click must stop propagation or it would ALSO open
+         the file picker — hence t-on-click.stop here.
+         ============================================================ -->
+    <t t-name="excalidraw_for_odoo.ChatterAttachFilesExtension"
+       t-inherit="mail.Chatter.attachFiles"
+       t-inherit-mode="extension">
+        <xpath expr="//button[hasclass('o-mail-Chatter-attachFiles')]" position="after">
+            <button
+                type="button"
+                class="btn btn-link o-mail-Chatter-excalidraw text-nowrap"
+                t-if="props.threadId and excalidraw.visible"
+                t-att-class="{ 'my-2': !props.compactHeight }"
+                t-att-title="excalidrawButtonTitle"
+                t-att-aria-label="excalidrawButtonTitle"
+                t-on-click.stop="openExcalidraw"
+            >
+                <i class="fa fa-pencil" aria-hidden="true"/>
+            </button>
+        </xpath>
+    </t>
+
+</templates>

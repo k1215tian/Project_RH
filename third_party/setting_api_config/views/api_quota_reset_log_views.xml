@@ -1,61 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- View api.quota.reset.log View List -->
+    <!-- ============================== -->
+    <!-- List View                      -->
+    <!-- ============================== -->
     <record id="view_api_quota_reset_log_list" model="ir.ui.view">
-        <field name="name">view.api.quota.reset.log.list</field>
+        <field name="name">api.quota.reset.log.list</field>
         <field name="model">api.quota.reset.log</field>
         <field name="arch" type="xml">
-            <list>
+            <list string="API Quota Reset History" decoration-info="reset_type == 'manual'" decoration-success="reset_type != 'manual'">
+
                 <field name="name"/>
+                <field name="reset_date"/>
+                <field name="config_id" optional="show"/>
+                <field name="customer_id" optional="show"/>
+                <field name="reset_type" widget="badge"/>
+                <field name="old_quota"/>
+                <field name="new_quota"/>
+                <field name="user_id" optional="show"/>
+
             </list>
         </field>
     </record>
 
-    <!-- View api.quota.reset.log form -->
+
+    <!-- ============================== -->
+    <!-- Form View                      -->
+    <!-- ============================== -->
     <record id="view_api_quota_reset_log_form" model="ir.ui.view">
-        <field name="name">view.api.quota.reset.log.form</field>
+        <field name="name">api.quota.reset.log.form</field>
         <field name="model">api.quota.reset.log</field>
         <field name="arch" type="xml">
-            <form string="Api Quota Reset Log">
+            <form string="API Quota Reset History">
                 <sheet>
+
                     <div class="oe_title">
                         <label for="name"/>
                         <h1>
-                            <field name="name" placeholder="Name..."/>
+                            <field name="name" readonly="1"/>
                         </h1>
                     </div>
+
+                    <group>
+                        <group string="Reset Information">
+                            <field name="reset_date" readonly="1"/>
+                            <field name="reset_type" widget="badge" readonly="1"/>
+                            <field name="user_id" readonly="1"/>
+                        </group>
+
+                        <group string="Reset Target">
+                            <field name="config_id" readonly="1" invisible="not config_id"/>
+                            <field name="customer_id" readonly="1" invisible="not customer_id"/>
+                        </group>
+                    </group>
+
+                    <separator string="Quota Information"/>
+
+                    <group>
+                        <group>
+                            <field name="old_quota" readonly="1"/>
+                        </group>
+
+                        <group>
+                            <field name="new_quota" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <div class="alert alert-info" role="alert">
+                        <strong>Quota Reset History</strong>
+                        <p>
+                                This record contains the quota balance
+                                before and after the reset operation.
+                        </p>
+                    </div>
+
                 </sheet>
             </form>
         </field>
     </record>
 
-    <!-- View api.quota.reset.log search -->
+
+    <!-- ============================== -->
+    <!-- Search View                    -->
+    <!-- ============================== -->
     <record id="view_api_quota_reset_log_search" model="ir.ui.view">
-        <field name="name">view.api.quota.reset.log.search</field>
+        <field name="name">api.quota.reset.log.search</field>
         <field name="model">api.quota.reset.log</field>
         <field name="arch" type="xml">
-            <search>
-                <group expand="1" string="Group By">
-                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+            <search string="Search API Quota Reset History">
+
+                <field name="name"/>
+                <field name="config_id"/>
+                <field name="customer_id"/>
+                <field name="user_id"/>
+
+                <separator/>
+
+                <filter name="manual" string="Manual" domain="[('reset_type', '=', 'manual')]"/>
+
+                <filter name="daily" string="Automatic Daily" domain="[('reset_type', '=', 'daily')]"/>
+
+                <filter name="monthly" string="Automatic Monthly" domain="[('reset_type', '=', 'monthly')]"/>
+
+                <filter name="yearly" string="Automatic Yearly" domain="[('reset_type', '=', 'yearly')]"/>
+
+                <group expand="0" string="Group By">
+
+                    <filter name="group_by_reset_type" string="Reset Type" context="{'group_by': 'reset_type'}"/>
+
+                    <filter name="group_by_config" string="API Configuration" context="{'group_by': 'config_id'}"/>
+
+                    <filter name="group_by_customer" string="API Customer" context="{'group_by': 'customer_id'}"/>
+
+                    <filter name="group_by_user" string="Reset By" context="{'group_by': 'user_id'}"/>
+
+                    <filter name="group_by_date" string="Reset Date" context="{'group_by': 'reset_date:month'}"/>
+
                 </group>
+
             </search>
         </field>
     </record>
 
-    <!-- Action api.quota.reset.log -->
+
+    <!-- ============================== -->
+    <!-- Window Action                  -->
+    <!-- ============================== -->
     <record id="action_api_quota_reset_log" model="ir.actions.act_window">
-        <field name="name">Api Quota Reset Log</field>
-        <field name="type">ir.actions.act_window</field>
+
+        <field name="name">API Quota Reset History</field>
         <field name="res_model">api.quota.reset.log</field>
         <field name="view_mode">list,form</field>
-        <field name="domain">[]</field>
-        <field name="context">{}</field>
+        <field name="view_id" ref="view_api_quota_reset_log_list"/>
+        <field name="search_view_id" ref="view_api_quota_reset_log_search"/>
+
         <field name="help" type="html">
-            <p class="oe_view_nocontent_create">
-                There is no examples click here to add new Api Quota Reset Log.
+            <p class="o_view_nocontent_smiling_face">
+                    No quota reset history found.
+            </p>
+            <p>
+                    Quota reset operations will be recorded here.
             </p>
         </field>
+
     </record>
+
 
 </odoo>

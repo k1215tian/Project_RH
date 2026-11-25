@@ -1,0 +1,125 @@
+// ─────────────────────────────────────────────────────────────────
+// Chatter-tool styles (design §3.4).
+//
+// NOTE: plain declarations only — libsass (< 3.7) treats css min()/max()
+// as its own SassScript function and fails on mixed units (documented lib
+// constraint, inherited from the legacy module styles).
+// ─────────────────────────────────────────────────────────────────
+
+// Fullscreen editor dialog: core's fullscreen/size="fullscreen" chrome sizes
+// the modal itself; these rules only make OUR content fill it
+// (belt-and-braces, design §3.4). The modal-body is p-0 via
+// withBodyPadding="false"; Excalidraw manages its own scrolling.
+.o-excalidraw-editor-dialog-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: hidden;
+    }
+}
+
+.o_excalidraw_editor_wrap {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .o_excalidraw_toolbar {
+        .o_excalidraw_theme_toggle {
+            background-color: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            border-radius: 6px;
+            color: inherit;
+            line-height: 1;
+            padding: 4px 8px;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
+
+    .o_excalidraw_canvas_wrap {
+        flex: 1 1 auto;
+        min-height: 0;
+        position: relative;
+    }
+
+    .o_excalidraw_canvas {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+
+        // Excalidraw expects a sized parent; make its root fill the container.
+        .excalidraw {
+            height: 100%;
+        }
+    }
+}
+
+// Picker dialog: rows (name + muted, localized timestamp), empty state.
+.o-excalidraw-picker-dialog {
+    .o-excalidraw-picker-row {
+        cursor: pointer;
+
+        .o-excalidraw-picker-name {
+            flex: 1 1 auto;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    .o-excalidraw-picker-empty {
+        padding: 2rem 1rem;
+    }
+}
+
+// Phones / narrow screens (IR-ASSET-1: retained from the legacy field widget,
+// re-scoped from .o_excalidraw_for_odoo_field to .o_excalidraw_editor_wrap —
+// identical .App-top-bar wrapping fixes, no new mobile work). The legacy
+// fixed-height tweaks (62vh/380px) are deliberately NOT carried over: they
+// belonged to the field widget's own box; the dialog fills the screen.
+//
+// Excalidraw sizes its mobile tool strip against the *viewport* (media
+// queries at 450px/379px, `max-width: 98vw`), but this editor lives in the
+// fullscreen dialog: dialog chrome makes the canvas narrower than the
+// viewport, so the strip overflows and the last icons get clipped.
+// `.App-top-bar` only exists in Excalidraw's mobile layout, so the rules
+// below restyle exactly that bar:
+//   * horizontal `Stack`s are CSS grids (`grid-auto-flow: column`) and
+//     cannot wrap — convert them to wrapping flex rows so the strip breaks
+//     into centered rows instead of clipping;
+//   * keep the tool island inside the dialog (`100%`, not `98vw`);
+//   * the pen/lock/hand toggles are absolutely pinned 5rem below the top
+//     edge and would overlap the wrapped rows — fold them into the flow.
+@media (max-width: 575px) {
+    .o_excalidraw_editor_wrap {
+        .excalidraw .App-top-bar {
+            .Stack_horizontal {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .App-toolbar--mobile {
+                max-width: 100%;
+            }
+
+            .mobile-misc-tools-container {
+                position: static;
+                flex-direction: row;
+                align-items: center;
+                border: 1px solid var(--sidebar-border-color);
+                border-radius: var(--border-radius-lg);
+            }
+        }
+    }
+}

@@ -1,0 +1,1 @@
+from . import test_setting_api_config

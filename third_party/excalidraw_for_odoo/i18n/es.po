@@ -1,0 +1,133 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* excalidraw_for_odoo
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 19.0\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: excalidraw_for_odoo
+#: model:ir.module.category,name:excalidraw_for_odoo.module_category_excalidraw_for_odoo
+#: model:res.groups.privilege,name:excalidraw_for_odoo.excalidraw_for_odoo_privilege
+msgid "Excalidraw"
+msgstr "Excalidraw"
+
+#. module: excalidraw_for_odoo
+#: model:res.groups,name:excalidraw_for_odoo.group_excalidraw_user
+msgid "User"
+msgstr "Usuario"
+
+#. module: excalidraw_for_odoo
+#: model:res.groups,name:excalidraw_for_odoo.group_excalidraw_manager
+msgid "Manager"
+msgstr "Administrador"
+
+#. module: excalidraw_for_odoo
+#: model:res.groups,comment:excalidraw_for_odoo.group_excalidraw_user
+msgid "Can create and edit Excalidraw drawings."
+msgstr "Puede crear y editar dibujos de Excalidraw."
+
+#. module: excalidraw_for_odoo
+#: model:res.groups,comment:excalidraw_for_odoo.group_excalidraw_manager
+msgid "Can also delete Excalidraw drawings."
+msgstr "También puede eliminar dibujos de Excalidraw."
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/controllers/main.py:0
+msgid "The record does not exist or has been deleted."
+msgstr "El registro no existe o ha sido eliminado."
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/controllers/main.py:0
+msgid "You are not allowed to use the Excalidraw drawing tool."
+msgstr "No tiene permiso para usar la herramienta de dibujo Excalidraw."
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/controllers/main.py:0
+msgid "Model is not found or does not support Chatter."
+msgstr "El modelo no existe o no es compatible con el chatter."
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/controllers/main.py:0
+msgid "Invalid PNG data."
+msgstr "Datos PNG no válidos."
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/controllers/main.py:0
+msgid "Drawing %s"
+msgstr "Dibujo %s"
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/controllers/main.py:0
+msgid "The attachment is not an Excalidraw scene document."
+msgstr "El adjunto no es un documento de escena de Excalidraw."
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/static/src/js/chatter_patch.js:0
+msgid "Add or edit an Excalidraw drawing"
+msgstr "Añadir o editar un dibujo de Excalidraw"
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/static/src/js/excalidraw_dialogs.js:0
+msgid "Excalidraw drawings"
+msgstr "Dibujos de Excalidraw"
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/static/src/js/excalidraw_dialogs.js:0
+msgid "Loading drawings…"
+msgstr "Cargando dibujos…"
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/static/src/js/excalidraw_dialogs.js:0
+msgid "No drawings yet"
+msgstr "Aún no hay dibujos"
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/static/src/js/excalidraw_dialogs.js:0
+msgid "Open this drawing"
+msgstr "Abrir este dibujo"
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/static/src/js/excalidraw_dialogs.js:0
+msgid "New drawing"
+msgstr "Nuevo dibujo"
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/static/src/js/excalidraw_dialogs.js:0
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/static/src/js/excalidraw_dialogs.js:0
+msgid "Could not load the drawing"
+msgstr "No se pudo cargar el dibujo"
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/static/src/js/excalidraw_dialogs.js:0
+msgid "Excalidraw drawing"
+msgstr "Dibujo de Excalidraw"
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/static/src/js/excalidraw_dialogs.js:0
+msgid "Loading the Excalidraw editor…"
+msgstr "Cargando el editor de Excalidraw…"
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/static/src/js/excalidraw_dialogs.js:0
+msgid "Could not load the Excalidraw editor"
+msgstr "No se pudo cargar el editor de Excalidraw"
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/static/src/js/excalidraw_dialogs.js:0
+msgid "Switch to light theme"
+msgstr "Cambiar a tema claro"
+
+#. module: excalidraw_for_odoo
+#: code:addons/excalidraw_for_odoo/static/src/js/excalidraw_dialogs.js:0
+msgid "Switch to dark theme"
+msgstr "Cambiar a tema oscuro"
